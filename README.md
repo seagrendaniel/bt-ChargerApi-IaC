@@ -28,10 +28,12 @@ To deploy the Charger API
 1. **Navigate to the project directory:**
   ```bash
   cd path/to/your/project
+  ```
 
 2. **Install dependencies:**
   ```bash
   npm install
+  ```
 
 3. **Deploy the stack:**
   ```bash
