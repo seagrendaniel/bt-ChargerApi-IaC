@@ -51,6 +51,12 @@ export class ChargerApiStack extends cdk.Stack {
       }
     });
 
+    // need explicit log defs since they aren't automatically created
+    new logs.LogGroup(this, 'CreateChargerLogGroup', {
+      logGroupName: `/aws/lambda/${createChargerLambda.functionName}`,
+      removalPolicy: cdk.RemovalPolicy.DESTROY  // automatically clean up logs
+  });
+
     const getChargerLambda = new lambdaNodeJs.NodejsFunction(this, 'GetChargerHandler', {
       entry: 'lambda/getCharger.ts',
       handler: 'handler',
@@ -73,6 +79,12 @@ export class ChargerApiStack extends cdk.Stack {
       }
     });
 
+    // need explicit log defs since they aren't automatically created
+    new logs.LogGroup(this, 'UpdateChargerLogGroup', {
+      logGroupName: `/aws/lambda/${updateChargerLambda.functionName}`,
+      removalPolicy: cdk.RemovalPolicy.DESTROY  // automatically clean up logs
+    });
+
     const deleteChargerLambda = new lambdaNodeJs.NodejsFunction(this, 'DeleteChargerHandler', {
       entry: 'lambda/deleteCharger.ts',
       handler: 'handler',
@@ -83,6 +95,12 @@ export class ChargerApiStack extends cdk.Stack {
         CHARGERS_TABLE: chargerTable.tableName
       }
     });
+
+        // need explicit log defs since they aren't automatically created
+        new logs.LogGroup(this, 'DeleteChargerLogGroup', {
+          logGroupName: `/aws/lambda/${deleteChargerLambda.functionName}`,
+          removalPolicy: cdk.RemovalPolicy.DESTROY  // automatically clean up logs
+      });
 
     const getAllChargersLambda = new lambdaNodeJs.NodejsFunction(this, 'GetAllChargersHandler', {
       entry: 'lambda/getAllChargers.ts',
