@@ -42,18 +42,18 @@ To deploy the Charger API
 
 ## Testing the Public Endpoints
 
-### Note my public endpoint for testing is `https://0trws66xs2.execute-api.us-east-2.amazonaws.com/prod/`
+Note my public endpoint for testing is `https://0trws66xs2.execute-api.us-east-2.amazonaws.com/prod/`
 
 The public GET endpoints can be tested without authentication.
 
 - **List All Chargers**:
   ```bash
-curl https://yourapi.domain.com/prod/chargers
+  curl https://yourapi.domain.com/prod/chargers
   ```
 
 - **Get Charger by ID:**
   ```bash
-curl https://yourapi.domain.com/prod/chargers/{id}
+  curl https://yourapi.domain.com/prod/chargers/{id}
   ```
 
 Replace {id} with the actual ID of the charger you wish to retrieve.
@@ -64,7 +64,7 @@ The following endpoints require an API key for access:
 
 - **Create a Charger**:
   ```bash
-curl -X POST https://yourapi.domain.com/prod/chargers \
+  curl -X POST https://yourapi.domain.com/prod/chargers \
     -H 'x-api-key: HXIi0fZz5l6oivOcp0H0t4D4Hczc1vDe2nlGw3PV' \
     -H 'Content-Type: application/json' \
     -d '{"name": "New Charger", "description": "Fast charging solution", "status": "active", "location": {"latitude": 34.0522, "longitude": -118.2437}, "networkProtocol": "OCPP", "publicVisibility": true}'
@@ -72,7 +72,7 @@ curl -X POST https://yourapi.domain.com/prod/chargers \
 
 - **Update a Charger:**
   ```bash
-curl -X PUT https://yourapi.domain.com/prod/chargers/{id} \
+  curl -X PUT https://yourapi.domain.com/prod/chargers/{id} \
     -H 'x-api-key: HXIi0fZz5l6oivOcp0H0t4D4Hczc1vDe2nlGw3PV' \
     -H 'Content-Type: application/json' \
     -d '{"name": "Updated Charger", "description": "Updated description", "status": "active", "location": {"latitude": 34.0522, "longitude": -118.2437}, "networkProtocol": "OCPP", "publicVisibility": true}'
@@ -80,7 +80,7 @@ curl -X PUT https://yourapi.domain.com/prod/chargers/{id} \
 
 - **Delete a Charger:**
   ```bash
-curl -X DELETE https://yourapi.domain.com/prod/chargers/{id} \
+  curl -X DELETE https://yourapi.domain.com/prod/chargers/{id} \
     -H 'x-api-key: HXIi0fZz5l6oivOcp0H0t4D4Hczc1vDe2nlGw3PV'
   ```
 
