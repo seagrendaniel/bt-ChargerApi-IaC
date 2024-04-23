@@ -29,6 +29,17 @@ export class ChargerApiStack extends cdk.Stack {
     
 
     // Lambda Functions
+    const bulkInsertChargersLambda = new lambdaNodeJs.NodejsFunction(this, 'BulkInsertChargersHandler', {
+      entry: 'lambda/bulkInsertChargers.ts',  // Path to your Lambda file
+      handler: 'handler',
+      runtime: lambda.Runtime.NODEJS_16_X,
+      functionName: 'BulkCreateChargerFunction',
+      role: lambdaExecutionRole,
+      environment: {
+          CHARGERS_TABLE: chargerTable.tableName
+      }
+  });
+
     const createChargerLambda = new lambdaNodeJs.NodejsFunction(this, 'CreateChargerHandler', {
       entry: 'lambda/createCharger.ts',
       handler: 'handler',
@@ -90,6 +101,9 @@ export class ChargerApiStack extends cdk.Stack {
       description: 'This service handles CRUD operations on chargers.'
     });
 
+    const bulkInsert = api.root.addResource('bulk-insert')
+    bulkInsert.addMethod('POST', new apigateway.LambdaIntegration(bulkInsertChargersLambda))
+
     const chargers = api.root.addResource('chargers');
     chargers.addMethod('POST', new apigateway.LambdaIntegration(createChargerLambda), { apiKeyRequired: true });
     chargers.addMethod('GET', new apigateway.LambdaIntegration(getAllChargersLambda));
@@ -101,6 +115,7 @@ export class ChargerApiStack extends cdk.Stack {
 
  
     // DB Permissions
+    chargerTable.grantWriteData(bulkInsertChargersLambda);
     chargerTable.grantReadWriteData(createChargerLambda);
     chargerTable.grantReadData(getChargerLambda);
     chargerTable.grantReadWriteData(updateChargerLambda);

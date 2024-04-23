@@ -7,7 +7,7 @@ const app = new cdk.App();
 new ChargerApiStack(app, 'ChargerApiStack', {
   env: {
     region: 'us-east-2',
-    account: process.env.CDK_DEFAULT_ACCOUNT
+    account: '905418075371'
   }
 });
 
